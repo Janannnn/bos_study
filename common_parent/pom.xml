@@ -262,4 +262,7 @@
 		</pluginManagement>
 	</build>
   
+	<modules>
+		<module>bos_mymanagement</module>
+	</modules>
 </project>
