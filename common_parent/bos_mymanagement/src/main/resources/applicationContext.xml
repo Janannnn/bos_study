@@ -17,6 +17,8 @@
 	      
 	<!-- 引入外部的properties文件 -->
 	<context:property-placeholder location="classpath:config.properties" />
+	<!-- 扫描 @Server @Controller @Repository -->
+	<context:component-scan base-package="cn.itcast"/>
 	<!-- 连接池 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="${jdbc.driver}" />
@@ -66,5 +68,7 @@
 	</bean>
 	<!-- 注解管理事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<!-- 整合spring data jpa -->
+	<jpa:repositories base-package="cn.itcast.bos.dao" />
 	
 </beans>
