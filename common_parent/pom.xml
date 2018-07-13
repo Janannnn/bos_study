@@ -268,4 +268,7 @@
 		</pluginManagement>
 	</build>
   
+	<modules>
+		<module>bos_ownmanagement</module>
+	</modules>
 </project>

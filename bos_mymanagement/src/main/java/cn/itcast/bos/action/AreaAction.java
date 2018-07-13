@@ -1,7 +1,11 @@
 package cn.itcast.bos.action;
 
+import java.io.File;
+
+import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -23,5 +27,14 @@ public class AreaAction extends ActionSupport implements ModelDriven<Area>{
 		return area;
 	}
 
+	private File file;
+	public void setFile(File file) {
+		this.file = file;
+	}
 	
+	@Action(value="area_upload",results={@Result(name="success",type="json")})
+	public String area_upload(){
+		System.out.println(file);
+		return SUCCESS;
+	}
 }
