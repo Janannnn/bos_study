@@ -1,5 +1,7 @@
 package cn.itcast.bos.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,13 @@ public class StandardServiceImpl implements StandardService {
 	public Page<Standard> findPageData(Pageable pageable) {
 		return standardRepository.findAll(pageable);
 	}
+
+	@Override
+	public List<Standard> findAll() {
+		return standardRepository.findAll();
+	}
+	
+	
 
 	
 }

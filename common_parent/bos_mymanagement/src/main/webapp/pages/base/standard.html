@@ -60,7 +60,16 @@
 				text : '修改',
 				iconCls : 'icon-edit',
 				handler : function(){
-					alert('修改');
+					//获取datagrid中被选中的行
+					var rows = $("#grid").datagrid('getSelections');
+					if(rows.length!=1){
+						$.messager.alert('警告','被修改的记录只能为一条','warning');
+					}else{
+						var row = rows[0];
+						//将row的数据回显到form表单，此时row为json数据，并且有ID
+						$("#standardForm").form('load',row);
+						$("#standardWindow").window('open');
+					}
 				}
 			},{
 				id : 'button-delete',
@@ -157,7 +166,7 @@
 					<table class="table-edit" width="80%" align="center">
 						<tr class="title">
 							<td colspan="2">收派标准信息
-								<!--提供隐藏域 装载id -->
+								<!--提供隐藏域 装载id 后台根据是否有ID自动判断insert还是update-->
 								<input type="hidden" name="id" />
 							</td>
 						</tr>

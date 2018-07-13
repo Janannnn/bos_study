@@ -1,6 +1,7 @@
 package cn.itcast.bos.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -48,7 +49,7 @@ public class StandardAction extends ActionSupport implements ModelDriven<Standar
 		return standard;
 	}
 
-	@Action(value = "standard_save", results = { @Result(name = "success", type = "redirect", location = "./index.html") })
+	@Action(value = "standard_save", results = { @Result(name = "success", type = "redirect", location = "./pages/base/standard.html") })
 	public String standardSave() {
 		standardService.add(standard);
 		return SUCCESS;
@@ -67,5 +68,11 @@ public class StandardAction extends ActionSupport implements ModelDriven<Standar
 		ActionContext.getContext().getValueStack().push(result);
 		return SUCCESS;
 		
+	}
+	@Action(value="standard_findAll",results = { @Result(name = "success", type = "json") })
+	public String standardfindAll(){
+		List<Standard> list = standardService.findAll();
+		ActionContext.getContext().getValueStack().push(list);
+		return SUCCESS;
 	}
 }

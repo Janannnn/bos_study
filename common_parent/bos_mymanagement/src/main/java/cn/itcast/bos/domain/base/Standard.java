@@ -118,5 +118,5 @@ public class Standard {
 				+ operatingTime + ", operator=" + operator
 				+ ", operatingCompany=" + operatingCompany + "]";
 	}
-
+	
 }
