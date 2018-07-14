@@ -36,7 +36,24 @@
 			function doAssociationCustomers(){
 				alert("关联客户窗口弹出");
 			}
-			
+			//将表单数据转换为json数据
+			$.fn.serializeJson=function(){  
+            var serializeObj={};  
+            var array=this.serializeArray();  
+            var str=this.serialize();  
+            $(array).each(function(){  
+                if(serializeObj[this.name]){  
+                    if($.isArray(serializeObj[this.name])){  
+                        serializeObj[this.name].push(this.value);  
+                    }else{  
+                        serializeObj[this.name]=[serializeObj[this.name],this.value];
+                    }  
+                }else{  
+                    serializeObj[this.name]=this.value;   
+                }  
+            });  
+            return serializeObj;  
+        	}; 
 			//工具栏
 			var toolbar = [ {
 				id : 'button-search',	
@@ -122,7 +139,7 @@
 					pageList: [30,50,100],
 					pagination : true,
 					toolbar : toolbar,
-					url : "../../data/fixed_area.json",
+					url : "../../fixedArea_pageQuery",
 					idField : 'id',
 					columns : columns,
 					onDblClickRow : doDblClickRow
@@ -151,7 +168,12 @@
 			    });
 			    
 			   $("#save").click(function(){
-			   	$("#fixedAreaForm").submit();
+			   		$("#fixedAreaForm").submit();
+			   });
+			   $("#btn").click(function(){
+				   var  params = $("#searchForm").serializeJson();
+				   $("#grid").datagrid('load',params);
+				   $("#searchWindow").window('close');
 			   });
 			});
 		
@@ -383,19 +405,19 @@
 						<tr>
 							<td>定区编码</td>
 							<td>
-								<input type="text" name="id" class="easyui-validatebox" required="true" />
+								<input type="text" name="id" class="easyui-validatebox" />
 							</td>
 						</tr>
 						<tr>
 							<td>所属单位</td>
 							<td>
-								<input type="text" name="company" class="easyui-validatebox" required="true" />
+								<input type="text" name="company" class="easyui-validatebox" />
 							</td>
 						</tr>
 						<tr>
 							<td>分区</td>
 							<td>
-								<input type="text" name="subareaName" class="easyui-validatebox" required="true" />
+								<input type="text" name="subareaName" class="easyui-validatebox"  />
 							</td>
 						</tr>
 						<tr>
@@ -453,18 +475,13 @@
 							<td>选择快递员</td>
 							<td>
 								<!-- 存放定区编号 -->
-								<input type="hidden" name="id" id="courierFixedAreaId" />
-								<input type="text" name="courierId" class="easyui-combobox" required="true" 
-									data-options="url:'../../courier_findnoassociation.action',
-										valueField:'id',textField:'info'"/>
+								
 							</td>
 						</tr>
 						<tr>
 							<td>选择收派时间</td>
 							<td>
-								<input type="text" name="takeTimeId" class="easyui-combobox" required="true"
-									data-options="url:'../../taketime_findAll.action', 
-									valueField:'id',textField:'name'" />
+								
 							</td>
 						</tr>
 						<tr>
