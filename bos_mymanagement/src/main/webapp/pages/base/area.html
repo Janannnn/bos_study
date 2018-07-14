@@ -27,7 +27,27 @@
 			function doDelete(){
 				alert("删除...");
 			}
-			
+			function dopageSearch(){
+				$("#searchWindow").window('open');
+			}
+			//将表单数据转换为json数据
+			$.fn.serializeJson=function(){  
+            var serializeObj={};  
+            var array=this.serializeArray();  
+            var str=this.serialize();  
+            $(array).each(function(){  
+                if(serializeObj[this.name]){  
+                    if($.isArray(serializeObj[this.name])){  
+                        serializeObj[this.name].push(this.value);  
+                    }else{  
+                        serializeObj[this.name]=[serializeObj[this.name],this.value];
+                    }  
+                }else{  
+                    serializeObj[this.name]=this.value;   
+                }  
+            });  
+            return serializeObj;  
+        	}; 
 			//工具栏
 			var toolbar = [ {
 				id : 'button-edit',	
@@ -48,6 +68,12 @@
 				id : 'button-import',
 				text : '导入',
 				iconCls : 'icon-redo'
+			}
+			, {
+				id : 'button-search',
+				text : '查询',
+				iconCls : 'icon-search',
+				handler : dopageSearch
 			}];
 			// 定义列
 			var columns = [ [ {
@@ -99,7 +125,7 @@
 					pageList: [30,50,100],
 					pagination : true,
 					toolbar : toolbar,
-					url : "../../data/area.json",
+					url : "../../area_pageSearch",
 					idField : 'id',
 					columns : columns,
 					onDblClickRow : doDblClickRow
@@ -120,11 +146,37 @@
 			    $("#button-import").upload({
 			    	//默认文件名称为file
 			    	action:'../../area_upload',
+			    	onSelect:function(){
+			    		//选中后关闭自动提交
+			    		this.autoSubmit=false;
+			    		//获取文件的名字
+			    		var filename = this.filename();
+			    		var regex = /^.*\.(xls|xlsx)$/ ;
+			    		if(regex.test(filename)){
+			    			this.submit();
+			    		}else{
+			    			$.messager.alert("警告","只能上传.xls或.xlsx结尾的文件！","warning");
+			    		}
+			    	},
 			    	onComplete:function(response){
-			    		alert("上传成功");
+			    		var msg=$.parseJSON(response);
+			    		if(msg.tag==true){
+			    			$.messager.alert("通知",msg.message,"info");
+			    		}else{
+			    			$.messager.alert("通知",msg.message,"error");
+			    		}
 			    	}
 			    }
 			    );
+			    
+			    //分页条件查询加载条件
+			    $("#searchBtn").click(function(){
+			    	var params = $("#searchForm").serializeJson();
+			    	//向后台发送请求
+			    	$("#areaGrid").datagrid('load',params); 
+					// 关闭查询窗口 
+					$("#searchWindow").window('close');
+			    });
 				
 			});
 		
