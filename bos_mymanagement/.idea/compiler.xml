@@ -6,14 +6,51 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="bos_fore (1)" />
+        <module name="bos_fore (2)" />
+        <module name="bos_fore (3) (cn.itcast.maven)" />
+        <module name="bos_management (1)" />
+        <module name="bos_management (2)" />
+        <module name="bos_management (3) (cn.itcast.maven)" />
+        <module name="bos_mymanagement (1)" />
+        <module name="bos_mymanagement (2)" />
+        <module name="bos_mymanagement (3) (cn.itcast.maven)" />
+        <module name="crm_domain (1)" />
+        <module name="crm_domain (2)" />
+        <module name="crm_domain (3) (cn.itcast.maven)" />
+        <module name="crm_management (1)" />
+        <module name="crm_management (2)" />
+        <module name="crm_management (3) (cn.itcast.maven)" />
+        <module name="maven-archiver" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="bos_fore (1)" target="1.7" />
+      <module name="bos_fore (2)" target="1.5" />
+      <module name="bos_fore (3)" target="1.5" />
+      <module name="bos_fore (3) (cn.itcast.maven)" target="1.7" />
       <module name="bos_management" target="1.7" />
+      <module name="bos_management (1)" target="1.7" />
+      <module name="bos_management (2)" target="1.5" />
+      <module name="bos_management (3)" target="1.5" />
+      <module name="bos_management (3) (cn.itcast.maven)" target="1.7" />
       <module name="bos_mymanagement" target="1.7" />
+      <module name="bos_mymanagement (1)" target="1.7" />
+      <module name="bos_mymanagement (2)" target="1.5" />
+      <module name="bos_mymanagement (3)" target="1.5" />
+      <module name="bos_mymanagement (3) (cn.itcast.maven)" target="1.7" />
       <module name="common_parent" target="1.5" />
       <module name="crm_domain" target="1.7" />
+      <module name="crm_domain (1)" target="1.7" />
+      <module name="crm_domain (2)" target="1.5" />
+      <module name="crm_domain (3)" target="1.5" />
+      <module name="crm_domain (3) (cn.itcast.maven)" target="1.7" />
       <module name="crm_management" target="1.7" />
+      <module name="crm_management (1)" target="1.7" />
+      <module name="crm_management (2)" target="1.5" />
+      <module name="crm_management (3)" target="1.5" />
+      <module name="crm_management (3) (cn.itcast.maven)" target="1.7" />
+      <module name="maven-archiver" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
