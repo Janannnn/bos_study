@@ -43,8 +43,8 @@
 					$("#customerWindow").window('open');
 					//获得此定区的ID
 					var aaaaaaaaa = rows[0].id;
-					$("#fixedAreaId").val(aaaaaaaaa);
-					//alert($("#fixedAreaId").val());
+					$("#courierFixedAreaId").val(aaaaaaaaa);
+					alert($("#courierFixedAreaId").val());
 					$.ajax({
 					type:"post",
 					url:"../../findNoAssociationCustomers.action",
@@ -500,7 +500,7 @@
 						<tr>
 							<td>
 								<!-- 存放定区编号 -->
-								<input type="hidden" name="id" id="fixedAreaId">
+								<input type="hidden" name="id" id="courierFixedAreaId">
 								<!--未关联定区的客户   -->
 								<select id="noassociationSelect" multiple="multiple" size="10" style="width: 300px;"></select>
 							</td>
