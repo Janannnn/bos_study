@@ -101,7 +101,7 @@ public class AreaAction extends BaseAction<Area>{
 		pushPageToValueStack(page);
 		return SUCCESS;
 	}
-	
+	//数据导入
 	@Action(value="area_upload",results={@Result(name="success",type="json")})
 	public String areaUpload(){
 		Map<String,Object> message = new HashMap<>();

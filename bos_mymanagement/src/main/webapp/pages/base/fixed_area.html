@@ -21,7 +21,7 @@
 			}
 			
 			function doEdit(){
-				alert("修改...");
+				window.location.href="../../findNoAssociationCustomers";
 			}
 			
 			function doDelete(){
@@ -30,11 +30,47 @@
 			
 			function doSearch(){
 				$('#searchWindow').window("open");
+				
 			}
 			
 			// 关联客户窗口弹出
 			function doAssociationCustomers(){
-				alert("关联客户窗口弹出");
+				var rows = $("#grid").datagrid('getSelections');
+				if(rows.length !=1){
+					$.messager.alert('警告','定区必须并且只能选择一个','warning');
+				}else{
+					//alert("关联客户窗口弹出");
+					$("#customerWindow").window('open');
+					//获得此定区的ID
+					var aaaaaaaaa = rows[0].id;
+					$("#fixedAreaId").val(aaaaaaaaa);
+					//alert($("#fixedAreaId").val());
+					$.ajax({
+					type:"post",
+					url:"../../findNoAssociationCustomers.action",
+					dataType:"json",
+					success:function(data){
+						
+						$("#noassociationSelect").empty();
+						$(data).each(function(){
+							var customerOption =$("<option value='"+this.id+"'>"+this.username+"("+this.address+")</option>");
+							$("#noassociationSelect").append(customerOption);
+						});
+					}
+					});
+					$.ajax({
+						type:"post",
+						url:"../../findAssociationCustomers.action",
+						data:{id:aaaaaaaaa},
+						success:function(data){
+							$("#associationSelect").empty();
+							$(data).each(function(){
+								var customerOption = "<option value="+this.id+">"+this.username+"("+this.address+")"+"</option>";
+								$("#associationSelect").append(customerOption);
+							});
+						}
+					});
+				}
 			}
 			//将表单数据转换为json数据
 			$.fn.serializeJson=function(){  
@@ -90,13 +126,13 @@
 			}];
 			// 定义列
 			var columns = [ [ {
-				field : 'id',
+				field : 'fid',
 				title : '编号',
 				width : 80,
 				align : 'center',
 				checkbox:true
 			},{
-				field : 'fixedAreaNum',
+				field : 'id',
 				title : '定区编号',
 				width : 120,
 				align : 'center',
@@ -126,6 +162,29 @@
 			} ] ];
 			
 			$(function(){
+				// 向右移动按钮 
+				$("#toRight").click(function(){
+					$("#associationSelect").append($("#noassociationSelect option:selected"));
+				});
+				
+				// 向左移动按钮
+				$("#toLeft").click(function(){
+					$("#noassociationSelect").append($("#associationSelect option:selected"));
+				});
+				//进行定区关联客户
+				$("#associationBtn").click(function(){
+					// 选中所有 已关联定区客户select中选项 
+					
+					$("#associationSelect option").attr("selected","selected");
+					// 提交表单
+					$("#customerForm").submit();
+				});
+				//绑定分页查询条件
+				$("#btn").click(function(){
+					var params = $("#searchForm").serializeJson();
+					$("#grid").datagrid('load',params);
+					$('#searchWindow').window('close');
+				});
 				// 先将body隐藏，再显示，不会出现页面刷新效果
 				$("body").css({visibility:"visible"});
 				
@@ -417,7 +476,7 @@
 						<tr>
 							<td>分区</td>
 							<td>
-								<input type="text" name="subareaName" class="easyui-validatebox"  />
+								<input type="text" name="fixedAreaName" class="easyui-validatebox"  />
 							</td>
 						</tr>
 						<tr>
@@ -433,7 +492,7 @@
 			collapsible="false" closed="true" minimizable="false" maximizable="false" style="top:20px;left:200px;width: 700px;height: 300px;">
 			<div style="overflow:auto;padding:5px;" border="false">
 				<form id="customerForm" 
-					action="" method="post">
+					action="../../associationCustomersToFixedArea" method="post">
 					<table class="table-edit" width="80%" align="center">
 						<tr class="title">
 							<td colspan="3">关联客户</td>
@@ -441,7 +500,8 @@
 						<tr>
 							<td>
 								<!-- 存放定区编号 -->
-								<input type="hidden" name="id" id="customerFixedAreaId" />
+								<input type="hidden" name="id" id="fixedAreaId">
+								<!--未关联定区的客户   -->
 								<select id="noassociationSelect" multiple="multiple" size="10" style="width: 300px;"></select>
 							</td>
 							<td>
@@ -450,6 +510,7 @@
 								<input type="button" value="《《" id="toLeft">
 							</td>
 							<td>
+								<!--已关联定区的客户-->
 								<select id="associationSelect" name="customerIds" multiple="multiple" size="10" style="width: 300px;"></select>
 							</td>
 						</tr>

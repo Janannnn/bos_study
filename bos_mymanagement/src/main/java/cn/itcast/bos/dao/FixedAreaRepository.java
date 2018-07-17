@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import cn.itcast.bos.domain.base.FixedArea;
 
-public interface FixedAreaRepository extends JpaRepository<FixedArea, String>, JpaSpecificationExecutor<String> {
+public interface FixedAreaRepository extends JpaRepository<FixedArea, String>, JpaSpecificationExecutor<FixedArea> {
 
 }
