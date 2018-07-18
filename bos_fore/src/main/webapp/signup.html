@@ -135,6 +135,7 @@
 			$scope.btnMsg="发送验证码";
 			var second = 60;//倒计时60秒
 			var active = true;//标记，为true可进行按钮具有的功能
+			var tagCode = true;
 			
 			
 			$scope.checkCode=function(){
@@ -155,6 +156,7 @@
 					return ;
 				}
 				//校验通过
+				//异步发送短信
 				$http({
 					method:"get",
 					url:"courier_sendSms.action",
@@ -163,29 +165,36 @@
 					}
 				}).error(function(data,status,headers,config){
 					alert("发送短信出错，请联系管理员");
-				});
-				//2.显示倒计时按钮，60秒后可重新发送
-				//放1上导致手机号无法再次验证
-				active=false;
-				var secondInterval =  setInterval(function(){
-					if(second<0){
-						//倒计时结束可以重新发送
-						$scope.btnMsg="重新发送";
-						$scope.$digest();
-						//按钮功能可以进行
-						active=true;
-						//初始化
-						second=60;
-						//倒计时结束需要将定时清除，否则不用点击就一直重发送
-						clearInterval(secondInterval);
-						
-					}else{
-						$scope.btnMsg=second+"秒后可重发";
-						second--;
-						//强制更新视图
-						$scope.$digest();
+				}).success(function(response){
+					if(response.account==false){
+						alert("手机号已被占用，请登录或更换手机号");
+						return ;
 					}
-				},1000);
+					//2.显示倒计时按钮，60秒后可重新发送
+					//放1上导致手机号无法再次验证
+					active=false;
+					var secondInterval =  setInterval(function(){
+						if(second<0){
+							//倒计时结束可以重新发送
+							$scope.btnMsg="重新发送";
+							$scope.$digest();
+							//按钮功能可以进行
+							active=true;
+							//初始化
+							second=60;
+							//倒计时结束需要将定时清除，否则不用点击就一直重发送
+							clearInterval(secondInterval);
+							secondInterval=undefined;
+							
+						}else{
+							$scope.btnMsg=second+"秒后可重发";
+							second--;
+							//强制更新视图
+							$scope.$digest();
+						}
+					},1000);
+				})
+				
 			};
 		}]);
 	</script>

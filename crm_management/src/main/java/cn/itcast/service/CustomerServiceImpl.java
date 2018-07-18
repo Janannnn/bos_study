@@ -39,7 +39,18 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void addCustomer(Customer customer) {
+		System.out.println(customer.getEmail());
 		customerRepository.save(customer);
+	}
+
+	@Override
+	public void activeCustomer(String telephone) {
+		customerRepository.updateTypeByTelephone(telephone);
+	}
+
+	@Override
+	public Customer findCustomer(String telephone) {
+		return customerRepository.findByTelephone(telephone);
 	}
 
 }

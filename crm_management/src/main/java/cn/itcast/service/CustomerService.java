@@ -34,9 +34,22 @@ public interface CustomerService {
 			@QueryParam("customerIdStr")String customerIdStr,
 			@QueryParam("fixedAreaId")String fixedAreaId);
 	
+	//账号查询
+	@Path("/findCustomer/{telephone}")
+	@GET
+	@Produces({ "application/xml", "application/json" })
+	@Consumes({ "application/xml", "application/json" })
+	public Customer findCustomer(@PathParam("telephone")String telephone);
+	
 	//添加用户
 	@Path("/addCustomer")
 	@POST
 	@Consumes({ "application/xml", "application/json" })
 	public void addCustomer(Customer customer);
+	
+	//激活账号
+	@Path("/activeCustomer")
+	@PUT
+	@Consumes({ "application/xml", "application/json" })
+	public void activeCustomer(String telephone);
 }
