@@ -120,8 +120,7 @@ public class FixedAreaAction extends BaseAction<FixedArea> {
 		WebClient.create(
 				"http://localhost:9002/crm_management/services/customerService"
 						+ "/associationCustomersToFixedArea?customerIdStr="
-						+ customerIdStr + "&fixedAreaId=" + model.getId()).put(
-				null);
+						+ customerIdStr + "&fixedAreaId=" + model.getId()).put(null);
 		return SUCCESS;
 	}
 }

@@ -15,8 +15,5 @@
 
 	<!-- 扫描 @Server @Controller @Repository -->
 	<context:component-scan base-package="cn.itcast"/>
-
-	<!-- 加载properties文件 -->
-	<context:property-placeholder location="classpath:config.properties" />
-	
+	<!-- 本系统操作的实体类为客户，实体类的持久化操作由crm系统进行，因此本系统不需要进行持久化配置 -->
 </beans>
