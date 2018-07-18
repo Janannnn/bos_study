@@ -285,4 +285,10 @@
 		</pluginManagement>
 	</build>
   
+	<modules>
+		<module>../bos_fore</module>
+		<module>../bos_mymanagement</module>
+		<module>../crm_management</module>
+		<module>../crm_domain</module>
+	</modules>
 </project>
