@@ -18,4 +18,6 @@
 	<!-- 本系统操作的实体类为客户，实体类的持久化操作由crm系统进行，因此本系统不需要进行持久化配置 -->
 	<!-- 引入redis配置 -->
 	<import resource="applicationContext-cache.xml"/>
+	<!-- 引入ActiveMQ配置 -->
+	<import resource="applicationContext-mq-producer.xml"/>
 </beans>

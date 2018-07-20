@@ -63,7 +63,8 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-		<dependency>
+
+        <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
@@ -253,6 +254,16 @@
 			<artifactId>pinyin4j</artifactId>
 			<version>2.5.0</version>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>4.1.7.RELEASE</version>
+        </dependency>
+        <dependency>
+			<groupId>org.apache.xbean</groupId>
+			<artifactId>xbean-spring</artifactId>
+			<version>3.7</version>
+		</dependency>
 		<dependency>
 			<groupId>cn.itcast.maven</groupId>
 			<artifactId>crm_domain</artifactId>
@@ -279,16 +290,10 @@
 						<target>1.7</target>
 						<encoding>UTF-8</encoding>
 						<showWarnings>true</showWarnings>
+                        <compilerArgument>-Xlint:unchecked</compilerArgument>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
-  
-	<modules>
-		<module>../bos_fore</module>
-		<module>../bos_mymanagement</module>
-		<module>../crm_management</module>
-		<module>../crm_domain</module>
-	</modules>
 </project>

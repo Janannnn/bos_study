@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/../bos_fore" />
+    <file type="web" url="file://$PROJECT_DIR$/../bos_mymanagement" />
+    <file type="web" url="file://$PROJECT_DIR$/../crm_management" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../bos_fore/pom.xml" />
+        <option value="$PROJECT_DIR$/../bos_mymanagement/pom.xml" />
+        <option value="$PROJECT_DIR$/../crm_domain/pom.xml" />
+        <option value="$PROJECT_DIR$/../crm_management/pom.xml" />
       </list>
     </option>
   </component>

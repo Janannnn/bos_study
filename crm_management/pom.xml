@@ -11,7 +11,7 @@
   <packaging>war</packaging> 
   <name>crm_management</name>
   <description>客户关系管理系统</description>
-  
+
   <build>
   	<plugins>
   		<plugin>
