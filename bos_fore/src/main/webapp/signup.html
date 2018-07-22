@@ -171,30 +171,29 @@
 						return ;
 					}
 					//2.显示倒计时按钮，60秒后可重新发送
-					//放1上导致手机号无法再次验证
-					active=false;
-					var secondInterval =  setInterval(function(){
-						if(second<0){
-							//倒计时结束可以重新发送
-							$scope.btnMsg="重新发送";
-							$scope.$digest();
-							//按钮功能可以进行
-							active=true;
-							//初始化
-							second=60;
-							//倒计时结束需要将定时清除，否则不用点击就一直重发送
-							clearInterval(secondInterval);
-							secondInterval=undefined;
-							
-						}else{
-							$scope.btnMsg=second+"秒后可重发";
-							second--;
-							//强制更新视图
-							$scope.$digest();
-						}
-					},1000);
-				})
-				
+				//放1上导致手机号无法再次验证
+				active=false;
+				var secondInterval =  setInterval(function(){
+					if(second<0){
+						//倒计时结束可以重新发送
+						$scope.btnMsg="重新发送";
+						$scope.$digest();
+						//按钮功能可以进行
+						active=true;
+						//初始化
+						second=60;
+						//倒计时结束需要将定时清除，否则不用点击就一直重发送
+						clearInterval(secondInterval);
+						secondInterval=undefined;
+						
+					}else{
+						$scope.btnMsg=second+"秒后可重发";
+						second--;
+						//强制更新视图
+						$scope.$digest();
+					}
+				},1000);
+				});
 			};
 		}]);
 	</script>

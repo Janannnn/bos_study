@@ -5,6 +5,13 @@
     <artifactId>common_parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+<dependencies>
+  <dependency>
+    <groupId>cn.itcast.maven</groupId>
+    <artifactId>bos_domain</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </dependency>
+</dependencies>
   <artifactId>bos_mymanagement</artifactId>
   <packaging>war</packaging>
 </project>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/../../bos_sms" />
     <file type="web" url="file://$PROJECT_DIR$/../bos_fore" />
     <file type="web" url="file://$PROJECT_DIR$/../bos_mymanagement" />
     <file type="web" url="file://$PROJECT_DIR$/../crm_management" />
@@ -13,6 +14,8 @@
         <option value="$PROJECT_DIR$/../bos_mymanagement/pom.xml" />
         <option value="$PROJECT_DIR$/../crm_domain/pom.xml" />
         <option value="$PROJECT_DIR$/../crm_management/pom.xml" />
+        <option value="$PROJECT_DIR$/../../bos_sms/pom.xml" />
+        <option value="$PROJECT_DIR$/../bos_domain/pom.xml" />
       </list>
     </option>
   </component>

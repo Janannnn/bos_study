@@ -82,7 +82,7 @@ public class CustomerAction extends BaseAction<Customer> {
                 public Message createMessage(Session session) throws JMSException {
                     MapMessage mapMessage = session.createMapMessage();
                     mapMessage.setString("telephone",model.getTelephone());
-                    mapMessage.setString("code",randomCode);
+                    mapMessage.setString("randomCode",randomCode);
                     return mapMessage;
                 }
             });

@@ -24,23 +24,12 @@
 				});
 				
 				KindEditor.ready(function(K) {
-				    window.editor = K.create('#description',{
-				    	items : [
-						        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
-						        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
-						        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
-						        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
-						        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
-						        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
-						        'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
-						        'anchor', 'link', 'unlink', '|', 'about'
-						],
-						allowFileManager:true,
-						uploadJson : '../../image_upload.action',
-                		fileManagerJson : '../../image_manage.action'
+				   K.create('#description',{
+				    	uploadJson:"../../imgUpload.action",
+				    	fileManagerJson:"../../imgManage.action",
+				    	allowFileManager:true
 				    });
 				});
-				
 				// 为保存按钮，添加click事件
 				$("#save").click(function(){
 					if($("#promotionForm").form('validate')){
