@@ -49,6 +49,11 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	public Customer findOne(String telephone, String password) {
+		return customerRepository.findByTelephoneAndPassword(telephone,password);
+	}
+
+	@Override
 	public Customer findCustomer(String telephone) {
 		return customerRepository.findByTelephone(telephone);
 	}

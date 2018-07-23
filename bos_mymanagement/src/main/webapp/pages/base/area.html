@@ -125,7 +125,7 @@
 					pageList: [30,50,100],
 					pagination : true,
 					toolbar : toolbar,
-					url : "../../area_pageSearch",
+					url : "../../area_pageSearch.action",
 					idField : 'id',
 					columns : columns,
 					onDblClickRow : doDblClickRow
@@ -145,7 +145,7 @@
 			    //为导入按钮添加意一键上传
 			    $("#button-import").upload({
 			    	//默认文件名称为file
-			    	action:'../../area_upload',
+			    	action:'../../area_upload.action',
 			    	onSelect:function(){
 			    		//选中后关闭自动提交
 			    		this.autoSubmit=false;

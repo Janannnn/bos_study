@@ -1,5 +1,7 @@
 package cn.itcast.bos.domain.take_delivery;
 
+import cn.itcast.bos.domain.Constants;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -61,10 +63,14 @@ public class Promotion implements Serializable {
     }
 
     public String getTitleImg() {
-        return titleImg;
+        if (titleImg.startsWith("http")) {
+            return titleImg;
+        }
+        return Constants.BOS_MANAGEMENT_HOST + titleImg;
     }
 
     public void setTitleImg(String titleImg) {
+
         this.titleImg = titleImg;
     }
 
@@ -124,8 +130,13 @@ public class Promotion implements Serializable {
         this.status = status;
     }
 
+    //get方法：用于服务返回的时候
     public String getDescription() {
-        return description;
+        if (description.contains("http")) {
+            return description;
+        } else {
+            return description.replace("/bos_mymanagement", Constants.BOS_MANAGEMENT_HOST + "/bos_mymanagement");
+        }
     }
 
     public void setDescription(String description) {

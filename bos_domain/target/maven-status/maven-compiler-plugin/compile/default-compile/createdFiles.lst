@@ -1,5 +1,7 @@
 cn\itcast\bos\domain\take_delivery\Promotion.class
+cn\itcast\bos\domain\pagebean\PageBean.class
 cn\itcast\bos\domain\base\Archive.class
+cn\itcast\bos\domain\Constants.class
 cn\itcast\bos\domain\base\SubArea.class
 cn\itcast\bos\domain\base\Courier.class
 cn\itcast\bos\domain\base\Vehicle.class

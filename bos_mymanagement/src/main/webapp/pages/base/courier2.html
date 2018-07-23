@@ -136,7 +136,7 @@
 				//数据表格表单
 				$("#courierGrid").datagrid(
 					{
-						url:"../../courier_search",
+						url:"../../courier_search.action",
 						columns:columns,
 						toolbar:toolbar,
 						fit:true,
@@ -174,7 +174,7 @@
 			</div>
 			<div>
 				
-				<form id="courierForm" action="../../courier_add" method="post">
+				<form id="courierForm" action="../../courier_add.action" method="post">
 					<table style="width:500px;height:200px;">
 					<tr class="title">
 							<td colspan="4">收派员信息</td>
@@ -222,7 +222,7 @@
 									textField:前台显示的数据
                                 -->
 								<input type="text" name="standard.id" class="easyui-combobox" required="true"
-									data-options="valueField:'id',textField:'name',url:'../../standard_findAll'"/>
+									data-options="valueField:'id',textField:'name',url:'../../standard_findAll.action'"/>
 							</td>
 						</tr>
 						<tr>

@@ -70,5 +70,8 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<!-- 整合spring data jpa -->
 	<jpa:repositories base-package="cn.itcast.bos.dao" />
+
+	<!--发布服务-->
+	<import resource="applicationContext-webService.xml"/>
 	
 </beans>

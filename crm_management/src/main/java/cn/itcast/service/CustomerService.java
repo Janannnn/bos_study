@@ -52,4 +52,13 @@ public interface CustomerService {
 	@PUT
 	@Consumes({ "application/xml", "application/json" })
 	public void activeCustomer(String telephone);
+
+	//用户登录（查询用户是否存在）
+	@Path("/customerlogin")
+	@GET
+	@Consumes({ "application/xml", "application/json" })
+	@Produces({ "application/xml", "application/json" })
+	public Customer findOne(
+			@QueryParam("telephone")String telephone,
+			@QueryParam("password")String password);
 }

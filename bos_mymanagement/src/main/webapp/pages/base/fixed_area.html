@@ -21,7 +21,7 @@
 			}
 			
 			function doEdit(){
-				window.location.href="../../findNoAssociationCustomers";
+				window.location.href="../../findNoAssociationCustomers.action";
 			}
 			
 			function doDelete(){
@@ -198,7 +198,7 @@
 					pageList: [30,50,100],
 					pagination : true,
 					toolbar : toolbar,
-					url : "../../fixedArea_pageQuery",
+					url : "../../fixedArea_pageQuery.action",
 					idField : 'id',
 					columns : columns,
 					onDblClickRow : doDblClickRow
@@ -414,7 +414,7 @@
 
 			<div style="overflow:auto;padding:5px;" border="false">
 				<form id="fixedAreaForm" 
-					action="../../fixedArea_add" method="post">
+					action="../../fixedArea_add.action" method="post">
 					<table class="table-edit" width="80%" align="center">
 						<tr class="title">
 							<td colspan="2">定区信息</td>
@@ -492,7 +492,7 @@
 			collapsible="false" closed="true" minimizable="false" maximizable="false" style="top:20px;left:200px;width: 700px;height: 300px;">
 			<div style="overflow:auto;padding:5px;" border="false">
 				<form id="customerForm" 
-					action="../../associationCustomersToFixedArea" method="post">
+					action="../../associationCustomersToFixedArea.action" method="post">
 					<table class="table-edit" width="80%" align="center">
 						<tr class="title">
 							<td colspan="3">关联客户</td>

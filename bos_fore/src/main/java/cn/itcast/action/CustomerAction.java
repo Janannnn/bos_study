@@ -1,5 +1,6 @@
 package cn.itcast.action;
 
+import cn.itcast.bos.domain.Constants;
 import cn.itcast.bos.utils.BlankISUtils;
 import cn.itcast.bos.utils.MailUtils;
 import cn.itcast.crm.domain.Customer;
@@ -59,8 +60,26 @@ public class CustomerAction extends BaseAction<Customer> {
         this.activeCode = activeCode;
     }
 
+    //用户登录
+    @Action(value = "customer_login",results = {
+            @Result(name = "login",type = "redirect",location = "./login.html"),
+            @Result(name = "success",type = "redirect",location = "index.html#/myhome")
+    })
+    public String customerLogin(){
+        System.out.println(model.getPassword());
+        Customer customer = WebClient.create(Constants.CRM_MANAGEMENT_URL +
+                "/services/customerService/customerlogin" +
+                "?telephone="+model.getTelephone()+"&password="+model.getPassword())
+                .accept(MediaType.APPLICATION_JSON).get(Customer.class);
+        if(customer==null){
+            return LOGIN;
+        }
+        System.out.println(customer);
+        return SUCCESS;
+    }
+
     // 发送短信
-    @Action(value = "courier_sendSms", results = {@Result(name = "success", type = "json")})
+    @Action(value = "customer_sendSms", results = {@Result(name = "success", type = "json")})
     public String sendSms() throws ClientException {
 
         Map<String, Object> tag = new HashMap<>();
@@ -160,4 +179,5 @@ public class CustomerAction extends BaseAction<Customer> {
         }
         return NONE;
     }
+
 }

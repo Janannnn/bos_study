@@ -9,6 +9,9 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: com.aliyun:aliyun-java-sdk-core:3.2.8" />
           <element id="library" level="project" name="Maven: com.aliyun:aliyun-java-sdk-dysmsapi:1.0.0" />
+          <element id="archive" name="bos_domain-0.0.1-SNAPSHOT.jar">
+            <element id="module-output" name="bos_domain" />
+          </element>
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-all:1.2.2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-guice:1.2.2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.2" />

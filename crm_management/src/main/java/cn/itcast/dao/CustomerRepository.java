@@ -31,4 +31,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>, Jp
 	@Query("from Customer where telephone = ?")
 	Customer findByTelephone(String telephone);
 
+	Customer findByTelephoneAndPassword(String telephone,String password);
 }
