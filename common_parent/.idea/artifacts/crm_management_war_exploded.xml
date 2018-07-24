@@ -111,6 +111,8 @@
           <element id="library" level="project" name="Maven: javax.mail:mail:1.3.2" />
           <element id="library" level="project" name="Maven: com.aliyun:aliyun-java-sdk-core:3.2.8" />
           <element id="library" level="project" name="Maven: com.aliyun:aliyun-java-sdk-dysmsapi:1.0.0" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz:2.2.1" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz-jobs:2.2.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

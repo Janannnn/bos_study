@@ -85,7 +85,7 @@ public class CustomerAction extends BaseAction<Customer> {
         Map<String, Object> tag = new HashMap<>();
         // 进行账号唯一性检验（手机号）
         Customer customer = WebClient.create(
-                "http://localhost:9002/crm_management/services/customerService/findCustomer/" + model.getTelephone())
+                Constants.CRM_MANAGEMENT_URL+"/services/customerService/findCustomer/" + model.getTelephone())
                 .accept(MediaType.APPLICATION_JSON).get(Customer.class);
         if (!BlankISUtils.isBlank(customer)) {
             tag.put("account", false);
@@ -105,14 +105,6 @@ public class CustomerAction extends BaseAction<Customer> {
                     return mapMessage;
                 }
             });
-
-            /*
-             * SendSmsResponse sendSms =
-             * SmsDemo.sendSms(randomCode,model.getTelephone()); String staCode
-             * = sendSms.getCode(); if("OK".equalsIgnoreCase(staCode)){ //发送成功
-             * tag.put("flag", true); System.out.println("发送成功"); }else{ //发送失败
-             * tag.put("flag", false); System.out.println("发送失败"); }
-             */
 
         }
         ActionContext.getContext().getValueStack().push(tag);
@@ -135,7 +127,7 @@ public class CustomerAction extends BaseAction<Customer> {
             session.invalidate();
             if (BlankISUtils.isEqual(randomCode, code)) {
                 // 用户注册
-                WebClient.create("http://localhost:9002/crm_management/services/customerService/addCustomer/")
+                WebClient.create(Constants.CRM_MANAGEMENT_URL+"/services/customerService/addCustomer/")
                         .type(MediaType.APPLICATION_JSON).post(model);
                 // 发送邮件
                 // 生成激活码
@@ -170,7 +162,7 @@ public class CustomerAction extends BaseAction<Customer> {
             }
             // 验证通过,根据进行激活
             if (activeCode.equals(redisActiveCode)) {
-                WebClient.create("http://localhost:9002/crm_management/services/customerService/activeCustomer")
+                WebClient.create(Constants.CRM_MANAGEMENT_URL+"/services/customerService/activeCustomer")
                         .type(MediaType.APPLICATION_JSON).put(model.getTelephone());
                 response.getWriter().println("邮箱激活成功");
             }

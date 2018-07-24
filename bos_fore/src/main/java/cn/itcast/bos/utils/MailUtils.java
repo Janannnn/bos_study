@@ -1,5 +1,7 @@
 package cn.itcast.bos.utils;
 
+import cn.itcast.bos.domain.Constants;
+
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -14,7 +16,7 @@ public class MailUtils {
 	private static String username = "Janan_zsc@163.com";
 	private static String password = "chuang486";
 	private static String from = "Janan_zsc@163.com";
-	public static String activeUrl = "http://localhost:9003/bos_fore/customer_activeMail";
+	public static String activeUrl = Constants.BOS_FORE_URL+"/customer_activeMail";
 
 	public static void sendMail(String subject, String content, String to) {
 		Properties props = new Properties();

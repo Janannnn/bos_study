@@ -13,6 +13,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<!--服务入口-->
 	<servlet>
 		<servlet-name>CXFService</servlet-name>
 		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
@@ -29,8 +30,10 @@
         <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
     </filter>
 
+
     <filter-mapping>
         <filter-name>struts2</filter-name>
+		<!--防止服务请求被struts2拦截,修改入口规则-->
         <url-pattern>*.action</url-pattern>
     </filter-mapping>
 	
