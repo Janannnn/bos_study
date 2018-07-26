@@ -73,9 +73,12 @@ public class CustomerAction extends BaseAction<Customer> {
                 .accept(MediaType.APPLICATION_JSON).get(Customer.class);
         if(customer==null){
             return LOGIN;
+        }else{
+            ServletActionContext.getRequest().getSession().setAttribute("customer",customer);
+            System.out.println(customer);
+            return SUCCESS;
         }
-        System.out.println(customer);
-        return SUCCESS;
+
     }
 
     // 发送短信
@@ -96,16 +99,15 @@ public class CustomerAction extends BaseAction<Customer> {
             // 将验证码存入session,验证时要根据电话号进行验证码的校验
             ServletActionContext.getRequest().getSession().setAttribute(model.getTelephone(), randomCode);
            //利用生产者向消息队列消息，让sms系统发送短信
-            jmsTemplate.send("bos_sms", new MessageCreator() {
-                @Override
-                public Message createMessage(Session session) throws JMSException {
-                    MapMessage mapMessage = session.createMapMessage();
-                    mapMessage.setString("telephone",model.getTelephone());
-                    mapMessage.setString("randomCode",randomCode);
-                    return mapMessage;
-                }
-            });
-
+           jmsTemplate.send("bos_sms", new MessageCreator() {
+               @Override
+               public Message createMessage(Session session) throws JMSException {
+                   MapMessage mapMessage = session.createMapMessage();
+                   mapMessage.setString("telephone",model.getTelephone());
+                   mapMessage.setString("randomCode",randomCode);
+                   return mapMessage;
+               }
+           });
         }
         ActionContext.getContext().getValueStack().push(tag);
         return SUCCESS;
@@ -155,8 +157,10 @@ public class CustomerAction extends BaseAction<Customer> {
         try {
             HttpServletResponse response = ServletActionContext.getResponse();
             response.setContentType("text/html;charset=UTF-8");
+            String telephone = model.getTelephone();
+
             // 获取缓存中的激活码
-            String redisActiveCode = redisTemplate.opsForValue().get(model.getTelephone());
+            String redisActiveCode = redisTemplate.opsForValue().get(telephone);
             if (BlankISUtils.isBlank(redisActiveCode)) {
                 response.getWriter().print("<h1>邮箱激活码失效</h1>");
             }
@@ -165,6 +169,7 @@ public class CustomerAction extends BaseAction<Customer> {
                 WebClient.create(Constants.CRM_MANAGEMENT_URL+"/services/customerService/activeCustomer")
                         .type(MediaType.APPLICATION_JSON).put(model.getTelephone());
                 response.getWriter().println("邮箱激活成功");
+                redisTemplate.delete(telephone);
             }
         } catch (Exception e) {
             e.printStackTrace();

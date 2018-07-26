@@ -18,5 +18,7 @@
 	<import resource="applicationContext-webService.xml"/>
 	<!--引入定时器配置-->
 	<import resource="applicationContext-quartz.xml"/>
+	<!--引入ActiveMQ生产者-->
+	<import resource="applicationContext-mq-producer.xml"/>
 	
 </beans>

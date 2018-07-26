@@ -61,4 +61,12 @@ public interface CustomerService {
 	public Customer findOne(
 			@QueryParam("telephone")String telephone,
 			@QueryParam("password")String password);
+
+	//根据寄件人地址查找定区id
+	@Path("/fixedAreaIdByAddress")
+	@GET
+	@Consumes({ "application/xml", "application/json" })
+	@Produces({ "application/xml", "application/json" })
+	public String findFixedAreaIdByAddress(@QueryParam("address")String address);
+
 }

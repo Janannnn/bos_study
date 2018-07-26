@@ -47,7 +47,7 @@
 				</ul>
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane fade in active" id="one">
-						<form id="orderForm" class="form-horizontal" method="post">
+						<form id="orderForm" class="form-horizontal" method="post" action="order_add.action">
 						<!--寄件人信息 -->
 						<div class="model">
 							<div class="areatitle">
@@ -281,8 +281,8 @@
 											<label for="inputPassword" class="col-sm-3 control-label"><b>*</b>详细地址：</label>
 
 											<div class="col-sm-8">
-												<input name="sendAddress" id="sendAddress1" type="text" class="form-control" placeholder="街道详细（精确到门牌号） " required="required">
-												<div id="searchResultPanel1" name="searchResultPanel"  style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+												<input name="sendAddress1" id="sendAddress1" type="text" class="form-control" placeholder="街道详细（精确到门牌号） " required="required">
+												<div id="searchResultPanel1" name="searchResultPanel1"  style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
 											</div>
 										</div>
 									</div>
@@ -429,8 +429,8 @@
 											<label for="inputPassword" class="col-sm-3 control-label"><b>*</b>详细地址：</label>
 
 											<div class="col-sm-8">
-												<input name="sendAddress" id="sendAddress2" type="text" class="form-control" placeholder="街道详细（精确到门牌号） " ng-model="orderdata.sendAddress" required="required">
-												<div id="searchResultPanel2" name="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+												<input name="sendAddress2" id="sendAddress2" type="text" class="form-control" placeholder="街道详细（精确到门牌号） " ng-model="orderdata.sendAddress" required="required">
+												<div id="searchResultPanel2" name="searchResultPanel2" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
 											</div>
 										</div>
 
@@ -560,48 +560,59 @@
 			$('a[rel*=downloadr]').downloadr()
 		}
 	</script>
-		<script type="text/javascript">
-	// 百度地图API功能
-	function G(id) {
-		return document.getElementById(id);
-	}
+	<script type="text/javascript">
+		
+// 百度地图API功能
+function G(id) {
+	return document.getElementById(id);
+}
 
-	var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-		{"input" :"sendAddress"
-		
-	});
+var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+	{"input" :"sendAddress"
+	
+});
+/*以下是为了自动补全后详细地址和省市区一致*/
+ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+var str = "";
+	var _value = e.fromitem.value;
+	var value = "";
+	if (e.fromitem.index > -1) {
+		value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+	}    
+	str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+	
+	value = "";
+	if (e.toitem.index > -1) {
+		_value = e.toitem.value;
+		value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+	}    
+	str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+	G("searchResultPanel").innerHTML = str;
+});
 
-	var ac1 = new BMap.Autocomplete(    //建立一个自动完成的对象
-		{"input" :"sendAddress1"
-		
-	});
-	var ac2 = new BMap.Autocomplete(    //建立一个自动完成的对象
-		{"input" :"sendAddress2"
-		
-	});
-	ac.addEventListene r("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
-	var str = "";
-		var _value = e.fromitem.value;
-		var value = "";
-		if (e.fromitem.index > -1) {
-			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}    
-		str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
-		
-		value = "";
-		if (e.toitem.index > -1) {
-			_value = e.toitem.value;
-			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}    
-		str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-		G("searchResultPanel").innerHTML = str;
-	});
-
-	var myValue;
-	ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+var myValue;
+ac.addEventListener("onconfirm", function(e) {//鼠标点击下拉列表后的事件
+	
 	var _value = e.item.value;
-		myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+	myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+	G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+	var address = encodeURIComponent(myValue);
+	$.getJSON(
+		"http://api.map.baidu.com/cloudgc/v1?ak=tDcueAbqeKvbdIHMn7LlBM04MBDuZZ58&address="+address+"&callback=?",
+		function(data){
+			if(data.status==0&&data.result.length>0){
+				$('#sendAreaInfo').citypicker('reset');
+				$('#sendAreaInfo').citypicker('destroy');
+					
+				$('#sendAreaInfo').citypicker({
+						province: data.result[0].address_components.province ,
+						city: data.result[0].address_components.city ,
+						district: data.result[0].address_components.district
+					});
+				}
+			}
+		);
 	});
 
-</script>
+	</script>
+	

@@ -176,9 +176,10 @@
 									$scope.btnMsg = "重发验证码";
 									// 强制更新视图
 									$scope.$digest();
+									//可以发送的条件
 									active = true;
 									second = 60;
-									// 关闭定时器
+									// 关闭定时器,如果不关则不点击重发也会自动倒计时
 									clearInterval(secondInterval);
 									secondInterval = undefined;
 								} else {

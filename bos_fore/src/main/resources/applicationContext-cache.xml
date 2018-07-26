@@ -19,9 +19,10 @@
         p:database="0" />  
         
     <!-- spring data 提供 redis模板  -->
+    <!--供注入redis对象，设值使用-->
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">  
         <property name="connectionFactory" ref="redisConnectionFactory" /> 
-        <!-- 如果不指定 Serializer   -->
+        <!-- 指定 Serializer key-value  -->
         <property name="keySerializer">
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
         </property>

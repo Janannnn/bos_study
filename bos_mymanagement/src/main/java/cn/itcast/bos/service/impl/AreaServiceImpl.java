@@ -30,5 +30,10 @@ public class AreaServiceImpl implements AreaService {
 	public Page<Area> findPageData(Specification<Area> specification, Pageable pageable) {
 		return areaRepository.findAll(specification, pageable);
 	}
-	
+
+	@Override
+	public Area findByProvinceAndCityAndDistrict(String province, String city, String district) {
+		return areaRepository.findByProvinceAndCityAndDistrict(province,city,district);
+	}
+
 }

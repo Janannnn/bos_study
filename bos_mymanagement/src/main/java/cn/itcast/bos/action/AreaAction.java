@@ -148,7 +148,7 @@ public class AreaAction extends BaseAction<Area>{
 				array.add(area);
 			}
 			areaService.saveBatch(array);
-			int i = 10/0;
+			//int i = 10/0;
 			message.put("message","文件上传成功");
 			message.put("tag", true);
 		} catch (Exception e) {

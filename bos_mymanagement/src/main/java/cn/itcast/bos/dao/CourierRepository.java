@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 
 import cn.itcast.bos.domain.base.Courier;
 
+import java.util.List;
+
 public interface CourierRepository extends JpaRepository<Courier, Integer>,JpaSpecificationExecutor<Courier>{
 
 	@Query("update Courier set deltag ='0' where id = ?")
 	@Modifying
 	public void updateTag(Integer id);
+
 
 }
