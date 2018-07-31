@@ -10,4 +10,6 @@ public interface OrderService {
     @Path("/orderAdd")
     @POST
     public void orderAdd(Order order);
+
+    Order  findByOrderNum(String orderNum);
 }

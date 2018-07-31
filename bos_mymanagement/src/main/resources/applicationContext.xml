@@ -20,5 +20,9 @@
 	<import resource="applicationContext-quartz.xml"/>
 	<!--引入ActiveMQ生产者-->
 	<import resource="applicationContext-mq-producer.xml"/>
+	<!--引入全文检索配置文件-->
+	<import resource="applicationContext-elasticsearch.xml"/>
+	<!--引入权限控制-->
+	<import resource="applicationContext-shiro.xml"/>
 	
 </beans>

@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import cn.itcast.bos.domain.base.Area;
 import cn.itcast.bos.domain.base.Courier;
+import org.apache.struts2.json.annotations.JSON;
 
 /**
  * @description:订单实体类
@@ -260,9 +261,11 @@ public class Order {
 		this.wayBill = wayBill;
 	}
 
+	@JSON(serialize = false)
 	public Set<WorkBill> getWorkBills() {
 		return workBills;
 	}
+
 
 	public void setWorkBills(Set<WorkBill> workBills) {
 		this.workBills = workBills;

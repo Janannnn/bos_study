@@ -18,33 +18,38 @@
 			var editIndex ;
 			
 			function doAdd(){
-				if(editIndex != undefined){
-					$("#grid").datagrid('endEdit',editIndex);
+				if(editIndex!=undefined){
+					//正在编辑
+					return ;
 				}
-				if(editIndex==undefined){
-					//alert("快速添加电子单...");
-					$("#grid").datagrid('insertRow',{
-						index : 0,
-						row : {}
-					});
-					$("#grid").datagrid('beginEdit',0);
-					editIndex = 0;
-				}
-			}
-			
+				$.messager.alert('通知','新增一行','info');
+				$("#grid").datagrid('insertRow',{
+				  	index: 0,	// index start with 0
+				  	row: {}
+				  });
+				$("#grid").datagrid('beginEdit',0);
+				editIndex=0;
+			}	
 			function doSave(){
-				$("#grid").datagrid('endEdit',editIndex );
+				$.messager.alert('通知','保存编辑','info');
+				$("#grid").datagrid('endEdit',editIndex);
+				
 			}
 			
 			function doCancel(){
 				if(editIndex!=undefined){
+					//正在编辑才能取消编辑
 					$("#grid").datagrid('cancelEdit',editIndex);
-					if($('#grid').datagrid('getRows')[editIndex].id == undefined){
+					//取消编辑后会留下空行需要删除
+					if($("#grid").datagrid('getRows')[editIndex].id==undefined){
 						$("#grid").datagrid('deleteRow',editIndex);
 					}
-					editIndex = undefined;
+					//可以再次编辑
+					editIndex=undefined;
 				}
+
 			}
+			
 			
 			//工具栏
 			var toolbar = [ {
@@ -64,8 +69,12 @@
 				handler : doSave
 			}];
 			// 定义列
-			var columns = [ [ {
+			var columns = [ [ 
+			{
 				field : 'id',
+				hidden:true
+			},{
+				field : 'wayBillNum',
 				title : '工作单号',
 				width : 120,
 				align : 'center',
@@ -76,7 +85,7 @@
 					}
 				}
 			}, {
-				field : 'arrivecity',
+				field : 'arriveCity',
 				title : '到达地',
 				width : 120,
 				align : 'center',
@@ -133,6 +142,8 @@
 			}] ];
 			
 			$(function(){
+				
+				
 				// 先将body隐藏，再显示，不会出现页面刷新效果
 				$("body").css({visibility:"visible"});
 				
@@ -146,11 +157,25 @@
 					pageList: [30,50,100],
 					pagination : true,
 					toolbar : toolbar,
-					url :  "",
+					url :  "../../wayBill_pageQuery.action",
 					idField : 'id',
 					columns : columns,
 					onDblClickRow : doDblClickRow,
-					onAfterEdit : function(rowIndex, rowData, changes){
+					onAfterEdit:function(rowIndex, rowData, changes){
+						//向后台传递数据进行运单保存
+						$.post("../../wayBill_add.action",rowData,function(data){
+							// data数据格式 {success:true, msg:'xxxx'} 
+							if(data.success ==true){
+								// 保存成功 
+								$.messager.show({
+									title:'提示窗口',  	
+  									msg: data.msg,
+								});
+								// 刷新列表 
+								$("#grid").datagrid('reload');
+							}
+						});
+						//完成保存后
 						console.info(rowData);
 						editIndex = undefined;
 					}

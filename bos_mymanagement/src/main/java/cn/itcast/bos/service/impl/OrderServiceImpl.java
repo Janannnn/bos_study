@@ -108,6 +108,9 @@ public class OrderServiceImpl implements OrderService {
         }
 
     }
+
+
+
     //生成工单，发送短信给快递员
     private void createWorkBill(final Order order) throws JMSException {
 
@@ -155,5 +158,10 @@ public class OrderServiceImpl implements OrderService {
             order.setOrderNum(UUID.randomUUID().toString());
             orderRepository.save(order);
         }
+    }
+
+    @Override
+    public Order findByOrderNum(String orderNum) {
+        return orderRepository.findByOrderNum(orderNum);
     }
 }

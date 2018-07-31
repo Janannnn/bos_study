@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--配置shiro核心Filter-->
+	<bean id="shiroFilter"
+		  class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!--安全管理器-->
+		<property name="securityManager" ref="securityManage"/>
+		<!-- 未认证，跳转到的页面  -->
+		<property name="loginUrl" value="/login.html" />
+		<!-- 认证成功统一跳转到的页面,shiro认证成功自动到上一个请求路径-->
+		<property name="successUrl" value="/index.html" />
+		<!-- 认证后，没有权限跳转到的页面 -->
+		<property name="unauthorizedUrl" value="/unauthorized.html" />
+		<!-- shiro URL控制过滤器规则  -->
+		<property name="filterChainDefinitions">
+			<value>
+				/login.html* = anon
+				/user_login.action* = anon
+				/validatecode.jsp* = anon
+				/css/** = anon
+				/js/** = anon
+				/images/** = anon
+				/services/** = anon
+				/pages/base/courier2.html* = perms[courier:list]
+				/pages/base/area.html* = roles[base]
+				/** = authc
+			</value>
+		</property>
+	</bean>
+	<!--配置安全管理器-->
+	<bean id="securityManage" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="bosRealm"/>
+	</bean>
+
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<!--开启shiro注解模式-->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		  depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true"/>
+	</bean>
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManage"/>
+	</bean>
+</beans>
