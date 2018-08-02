@@ -26,14 +26,31 @@
 				/images/** = anon
 				/services/** = anon
 				/pages/base/courier2.html* = perms[courier:list]
-				/pages/base/area.html* = roles[base]
+				/pages/base/area.html* = roles[system]
 				/** = authc
 			</value>
 		</property>
 	</bean>
+	<!--配置realm，为了注入缓存-->
+	<bean id="bosRealm" class="cn.itcast.bos.realm.BosRealm">
+		<!--
+		value:缓存区的名字就是ehcache.xml自定义cache的name
+		name:对那种数据进行缓存（认证？授权？）此处为授权
+		猜想：shiro利用securityManage自动根据subject用户在缓存区区分用户的数据缓存
+		-->
+		<property name="authorizationCacheName" value="bos"/>
+	</bean>
+	<!--shiro整合ehcache-->
+	<!--配置 shiro 封装缓存管理器-->
+	<bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="cacheManager"/>
+	</bean>
 	<!--配置安全管理器-->
 	<bean id="securityManage" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!--注入自定义realm实现与安全数据交互-->
 		<property name="realm" ref="bosRealm"/>
+		<!--注入缓存管理器-->
+		<property name="cacheManager" ref="ehCacheManager"/>
 	</bean>
 
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />

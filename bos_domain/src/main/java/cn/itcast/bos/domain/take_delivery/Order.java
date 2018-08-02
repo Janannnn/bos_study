@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import cn.itcast.bos.domain.base.Area;
 import cn.itcast.bos.domain.base.Courier;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.struts2.json.annotations.JSON;
 
 /**
@@ -149,6 +150,7 @@ public class Order {
 		this.sendCompany = sendCompany;
 	}
 
+	@JsonIgnore
 	public Area getSendArea() {
 		return sendArea;
 	}

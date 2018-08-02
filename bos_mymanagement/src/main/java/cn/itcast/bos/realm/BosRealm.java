@@ -17,8 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-@Service("bosRealm")
+//自定义Realm，实现安全数据连接
+//@Service("bosRealm")
 public class BosRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;

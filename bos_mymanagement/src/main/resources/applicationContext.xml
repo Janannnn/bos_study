@@ -24,5 +24,8 @@
 	<import resource="applicationContext-elasticsearch.xml"/>
 	<!--引入权限控制-->
 	<import resource="applicationContext-shiro.xml"/>
+	<!--引入缓存-->
+	<import resource="applicationContext-cache.xml"/>
+
 	
 </beans>

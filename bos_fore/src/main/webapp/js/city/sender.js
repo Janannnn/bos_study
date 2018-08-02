@@ -1,4 +1,4 @@
-
+<script type="text/javascript">
 // 百度地图API功能
 function G(id) {
 	return document.getElementById(id);
@@ -50,3 +50,4 @@ ac.addEventListener("onconfirm", function(e) {//鼠标点击下拉列表后的�
 			}
 		);
 	});
+</script>

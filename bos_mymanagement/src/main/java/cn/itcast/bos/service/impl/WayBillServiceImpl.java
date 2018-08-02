@@ -92,9 +92,16 @@ public class WayBillServiceImpl implements WayBillService {
 
     @Override
     public void add(WayBill wayBill) {
-        //运单号有ID，执行更新操作
-        wayBillReository.save(wayBill);
-        wayBillIndexRepository.save(wayBill);
+        //根据运单Id查出运单，判断是否待发货
+        WayBill wayBillOne = wayBillReository.findOne(wayBill.getId());
+        if(wayBillOne.getSignStatus()==1){
+            //运单号有ID，执行更新操作
+            wayBillReository.save(wayBill);
+            wayBillIndexRepository.save(wayBill);
+        }else {
+            throw new RuntimeException("运单已发出，无法修改");
+        }
+
     }
 
     @Override

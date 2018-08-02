@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
@@ -71,7 +72,7 @@ public class WayBill implements Serializable {
 	private String recAddress;// 收件人详细地址信息
 
 	@Column(name = "C_SEND_PRO_NUM")
-	@Field(index = FieldIndex.analyzed, analyzer = "ik", searchAnalyzer = "ik", store = true, type = FieldType.String)
+	@Field(index = FieldIndex.not_analyzed, analyzer = "ik", searchAnalyzer = "ik", store = true, type = FieldType.String)
 	private String sendProNum; // 快递产品类型编号：速运当日、速运次日、速运隔日
 	@Column(name = "C_GOODS_TYPE")
 	@Field(index = FieldIndex.analyzed, analyzer = "ik", searchAnalyzer = "ik", store = true, type = FieldType.String)
@@ -145,6 +146,7 @@ public class WayBill implements Serializable {
 		this.wayBillNum = wayBillNum;
 	}
 
+    @JsonIgnore
 	public Order getOrder() {
 		return order;
 	}

@@ -39,6 +39,37 @@
             return serializeObj;  
         	}; 
 		</script>
+		<script type="text/javascript">
+			$(function(){
+				$("#transitBtn").click(function(){
+					var rows = $("#tt").datagrid('getSelections');
+					if(rows.length<1){
+						//没有选择运单
+						$.messager.alert('警告','必须选择一个运单','warning');
+					}else{
+						var array = new Array();
+						for(var i=0;i<rows.length;i++){
+							array.push(rows[i].id);
+						}
+						var wayBillIds= array.join(",");
+						$.post("../../transit_create.action",{wayBillIds:wayBillIds},function(data){
+							if(data.success ==true){
+								$.messager.show({
+									title:'操作成功',  	
+  									msg:data.msg
+								});
+							}else{
+								$.messager.show({
+									title:'操作失败', 
+  									msg:data.msg
+								});
+							}
+						});
+						
+					}
+				});
+			});
+		</script>
 	</head>
 
 	<body>
@@ -51,7 +82,7 @@
 			<a id="help" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
 			<a id="help" icon="icon-print" href="#" class="easyui-linkbutton" plain="true">打印标签</a>
 			<a id="help" icon="icon-print" href="#" class="easyui-linkbutton" plain="true">打印工作单</a>
-			
+			<a id="transitBtn" icon="icon-edit" href="#" class="easyui-linkbutton" plain="true">开始中转配送</a>
 			<br />
 			<form id="pageForm">
 				运单号：<input name="wayBillNum" style="line-height:26px;border:1px solid #ccc">
@@ -90,6 +121,7 @@
 					<th field="recName" width="80">收件人</th>
 					<th field="recMobile" width="80">收件人电话</th>
 					<th field="recCompany" width="80">收件人公司</th>
+					<th field="signStatus" width="80">运单状态</th>
 					<th field="recAddress" width="120">收件人详细地址</th>
 					<th field="sendProNum" width="80">产品类型</th>
 					<th field="payTypeNum" width="80">支付类型</th>

@@ -147,6 +147,7 @@
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-elasticsearch:2.0.4.RELEASE" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.7" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.0" />
+          <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.6.11" />
         </element>
       </element>
       <element id="directory" name="META-INF">
