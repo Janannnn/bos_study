@@ -35,6 +35,16 @@
 		<url-pattern>/services/*</url-pattern>
 	</servlet-mapping>
 
+	<!--进行session延迟关闭，防止懒加载，获取集合数据,必须放struts2上面-->
+	<filter>
+		<filter-name>OpenEntityManagerInView</filter-name>
+		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>OpenEntityManagerInView</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- struts2 过滤器 -->
 	<filter>
         <filter-name>struts2</filter-name>
@@ -48,6 +58,7 @@
         <url-pattern>*.action</url-pattern>
     </filter-mapping>
 	
+
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

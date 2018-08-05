@@ -72,8 +72,9 @@ public class WayBill implements Serializable {
 	private String recAddress;// 收件人详细地址信息
 
 	@Column(name = "C_SEND_PRO_NUM")
-	@Field(index = FieldIndex.not_analyzed, analyzer = "ik", searchAnalyzer = "ik", store = true, type = FieldType.String)
+	@Field(index = FieldIndex.not_analyzed,store = true, type = FieldType.String)
 	private String sendProNum; // 快递产品类型编号：速运当日、速运次日、速运隔日
+
 	@Column(name = "C_GOODS_TYPE")
 	@Field(index = FieldIndex.analyzed, analyzer = "ik", searchAnalyzer = "ik", store = true, type = FieldType.String)
 	private String goodsType;// 托寄物类型：文件、衣服 、食品、电子商品

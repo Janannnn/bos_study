@@ -54,12 +54,16 @@ public class WayBillAction extends BaseAction<WayBill> {
     public String add(){
         //运单的订单信息：
         Order order = model.getOrder();
+        //查看传过来的运单信息
         System.out.println("运单的ID："+model.getId());
         System.out.println("运单的订单数据："+order);
         System.out.println(order.getCourier().getName());
+
+        //没有订单的情况
         if(order==null||order.getId()==null||order.getId()==0){
             model.setOrder(null);
         }
+
         wayBillService.add(model);
         Map<String,Object> map = new HashMap<>();
         map.put("success",true);

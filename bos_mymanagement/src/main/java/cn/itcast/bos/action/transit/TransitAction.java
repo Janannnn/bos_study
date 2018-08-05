@@ -10,6 +10,9 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
 import java.util.HashMap;
@@ -20,6 +23,18 @@ import java.util.Map;
 @ParentPackage("json-default")
 @Scope("prototype")
 public class TransitAction extends BaseAction<TransitInfo> {
+
+    private int page;
+    private int rows;
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
     @Autowired
     private TransitInfoService transitInfoService;
 
@@ -29,6 +44,7 @@ public class TransitAction extends BaseAction<TransitInfo> {
         this.wayBillIds = wayBillIds;
     }
 
+    //开启中转配送
     @Action(value = "transit_create",results = {@Result(name = "success",type = "json")})
     public String create(){
         Map<String ,Object> map = new HashMap<>();
@@ -44,4 +60,13 @@ public class TransitAction extends BaseAction<TransitInfo> {
         ActionContext.getContext().getValueStack().push(map);
         return SUCCESS;
     }
+    //查询配送信息
+    @Action(value = "transit_pageQuery",results = {@Result(name = "success",type = "json")})
+    public String list(){
+        Pageable pageable = new PageRequest(page-1,rows);
+        Page<TransitInfo> page= transitInfoService.pageQuery(pageable);
+        pushPageToValueStack(page);
+        return SUCCESS;
+    }
+
 }

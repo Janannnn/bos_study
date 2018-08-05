@@ -14,6 +14,7 @@ import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import cn.itcast.bos.domain.take_delivery.WayBill;
+import org.apache.struts2.json.annotations.JSON;
 
 /**
  * @description: 运输配送信息
@@ -66,6 +67,7 @@ public class TransitInfo {
 		this.wayBill = wayBill;
 	}
 
+
 	public List<InOutStorageInfo> getInOutStorageInfos() {
 		return inOutStorageInfos;
 	}
@@ -106,4 +108,18 @@ public class TransitInfo {
 		this.outletAddress = outletAddress;
 	}
 
+	public String getTransferInfo(){
+		StringBuffer buffer = new StringBuffer();
+		//添加出入库信息
+		for (InOutStorageInfo inOutStorageInfo : inOutStorageInfos) {
+			buffer.append(inOutStorageInfo.getDescription()+"<br/>");
+		}
+		if(deliveryInfo!=null){
+			buffer.append(deliveryInfo.getDescription()+"<br/>");
+		}
+		if(signInfo!=null){
+			buffer.append(signInfo.getDescription()+"<br/>");
+		}
+		return buffer.toString();
+	}
 }

@@ -4,14 +4,19 @@ import cn.itcast.bos.dao.WayBillReository;
 import cn.itcast.bos.dao.transit.TransitRepository;
 import cn.itcast.bos.domain.take_delivery.WayBill;
 import cn.itcast.bos.domain.transit.TransitInfo;
+import cn.itcast.bos.index.WayBillIndexRepository;
 import cn.itcast.bos.service.transit.TransitInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
 public class TransitInfoServiceImpl implements TransitInfoService {
+    @Autowired
+    private WayBillIndexRepository wayBillIndexRepository;
     @Autowired
     private TransitRepository transitRepository;
     @Autowired
@@ -33,10 +38,18 @@ public class TransitInfoServiceImpl implements TransitInfoService {
 
                 //更改运单状态
                 wayBill.setSignStatus(2);//派送中
+                //更新索引库
+                wayBillIndexRepository.save(wayBill);
             }else {
                 throw new RuntimeException("运单已发货，无需重复配送");
             }
         }
 
+    }
+
+    @Override
+    public Page<TransitInfo> pageQuery(Pageable pageable) {
+
+        return transitRepository.findAll(pageable);
     }
 }
