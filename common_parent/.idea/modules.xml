@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../bos_domain/bos_domain.iml" filepath="$PROJECT_DIR$/../bos_domain/bos_domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/../bos_fore/bos_fore.iml" filepath="$PROJECT_DIR$/../bos_fore/bos_fore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bos_fore/bos_fore.iml" filepath="$PROJECT_DIR$/../bos_fore/bos_fore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bos_img/bos_img.iml" filepath="$PROJECT_DIR$/../bos_img/bos_img.iml" />
       <module fileurl="file://$PROJECT_DIR$/../bos_mymanagement/bos_mymanagement.iml" filepath="$PROJECT_DIR$/../bos_mymanagement/bos_mymanagement.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../bos_sms/bos_sms.iml" filepath="$PROJECT_DIR$/../../bos_sms/bos_sms.iml" />
       <module fileurl="file://$PROJECT_DIR$/common_parent.iml" filepath="$PROJECT_DIR$/common_parent.iml" />

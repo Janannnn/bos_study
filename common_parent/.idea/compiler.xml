@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="bos_domain" />
         <module name="bos_fore" />
+        <module name="bos_img" />
         <module name="bos_mymanagement" />
         <module name="bos_sms" />
         <module name="crm_domain" />
@@ -17,6 +18,7 @@
     <bytecodeTargetLevel>
       <module name="bos_domain" target="1.7" />
       <module name="bos_fore" target="1.7" />
+      <module name="bos_img" target="1.7" />
       <module name="bos_mymanagement" target="1.7" />
       <module name="bos_sms" target="1.7" />
       <module name="common_parent" target="1.5" />

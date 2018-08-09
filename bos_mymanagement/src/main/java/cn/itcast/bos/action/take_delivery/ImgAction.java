@@ -1,5 +1,6 @@
 package cn.itcast.bos.action.take_delivery;
 
+import cn.itcast.bos.domain.Constants;
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
@@ -47,11 +48,14 @@ public class ImgAction {
         //保存图片（绝对路径）
         FileUtils.copyFile(imgFile, new File(savePath + randomFileName));
 
+        String url = Constants.BOS_MANAGEMENT_HOST+saveUrl + randomFileName;
+        System.out.println(url);
         Map<String, Object> result = new HashMap<>();
         result.put("error", 0);
-        result.put("url", saveUrl + randomFileName);
+        result.put("url", url);
         ActionContext.getContext().getValueStack().push(result);
         return "success";
+
     }
 
     @Action(value = "imgManage", results = {@Result(name = "success", type = "json")})
